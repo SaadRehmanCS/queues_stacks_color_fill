@@ -38,6 +38,8 @@ class MosaicColorPicker : public ColorPicker
      */
     virtual HSLAPixel operator()(point p);
 
+    void mosaicifyBlock(int left, int upper);
+
   private:
     int width;      // width of a mosaic block in pixels.
     PNG img;        // Original image used in flood fill algorithm
