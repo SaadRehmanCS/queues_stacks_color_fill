@@ -12,10 +12,7 @@
  */
 animation filler::fillBFS(FillerConfig &config)
 {
-    /**
-     * @todo Your code here! You should replace the following line with a
-     * correct call to fill.
-     */
+     return fill<Queue>(config);
 }
 
 /**
@@ -26,10 +23,7 @@ animation filler::fillBFS(FillerConfig &config)
  */
 animation filler::fillDFS(FillerConfig &config)
 {
-    /**
-     * @todo Your code here! You should replace the following line with a
-     * correct call to fill.
-     */
+     return fill<Stack>(config);
 }
 
 /**
@@ -38,9 +32,37 @@ animation filler::fillDFS(FillerConfig &config)
  * @param  config     FillerConfig struct with data for flood fill of image
  * @return animation  object illustrating progression of flood fill algorithm
  */
-template <template <class T> class OrderingStructure> animation filler::fill(FillerConfig &config)
+template <template <class T> class OrderingStructure>
+animation filler::fill(FillerConfig &config)
 {
-    /**
+
+     OrderingStructure<point> struc;
+     animation anim;
+     int counter = 0;
+
+     for (int i = 0; i < (int)config.centres.size(); i++) {
+
+          if (counter != 0 && counter % config.frameFreq == 0) {
+               anim.addFrame(config.img);
+          }
+          point p = point(config.centres[i]);
+
+          //if (appropriateToChangeColor) {
+               counter++;
+               ColorPicker* cp = config.pickers[i]; 
+               HSLAPixel pix = cp->operator()(p);
+               config.img.getPixel(p.x, p.y)->h = pix.h;
+               config.img.getPixel(p.x, p.y)->l = pix.l;
+               config.img.getPixel(p.x, p.y)->s = pix.s;
+               config.img.getPixel(p.x, p.y)->a = pix.a;
+          //}
+          struc.add(p);
+     }
+
+     anim.addFrame(config.img);
+     return anim;
+
+     /**
      * @todo You need to implement this function!
      *
      * This is the basic description of a flood-fill algorithm: Every fill

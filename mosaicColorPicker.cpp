@@ -3,14 +3,12 @@
 MosaicColorPicker::MosaicColorPicker(int mosaicwidth, PNG& inputimage) : width(mosaicwidth), img(inputimage) {
   //PNG mosaic = new PNG(inputimage);
 
-  for (int i = 0; i < inputimage.width(); i += width) {
-    for (int j = 0; j < inputimage.height(); j += width) {
+  for (unsigned int i = 0; i < inputimage.width(); i += width) {
+    for (unsigned int j = 0; j < inputimage.height(); j += width) {
       mosaicifyBlock(i, j);
     }
   }
-  
-  mosaicimg = img; 
-}
+  }
 
 void MosaicColorPicker::mosaicifyBlock(int left, int upper) {
   double avgA = 0, avgS = 0, avgH = 0, avgL = 0;
@@ -33,10 +31,10 @@ void MosaicColorPicker::mosaicifyBlock(int left, int upper) {
 
   for (int i = left; i < left + width; i++) {
     for (int j = upper; j < upper + width; j++) {
-      img.getPixel(i, j)->a = avgA;
-      img.getPixel(i, j)->h = avgH;
-      img.getPixel(i, j)->l = avgL;
-      img.getPixel(i, j)->s = avgS;
+      mosaicimg.getPixel(i, j)->a = avgA;
+      mosaicimg.getPixel(i, j)->h = avgH;
+      mosaicimg.getPixel(i, j)->l = avgL;
+      mosaicimg.getPixel(i, j)->s = avgS;
     }
   }
 }

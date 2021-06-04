@@ -16,5 +16,7 @@ HSLAPixel SolidColorPicker::operator()(point p)
   // of the member attribute.
   // Other ColorPickers will need to do some computation to decide what
   // color to use.
+  int x = p.x;
+  x += 3;
   return color;
 }

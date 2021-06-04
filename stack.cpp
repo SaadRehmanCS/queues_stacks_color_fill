@@ -66,7 +66,8 @@ T Stack<T>::pop(){
     int newCapacity = capacity() / EXPANSIONFACTOR;
     if (resizeRatio < allowedRatio) {
         if (newCapacity < DEFAULTCAPACITY) {
-            resize(DEFAULTCAPACITY);
+            //resize(DEFAULTCAPACITY);
+            return popped;
         } else {
             resize(newCapacity);
         }
